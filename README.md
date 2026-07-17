@@ -2,6 +2,35 @@
 
 Production-ready Next.js template optimized for AI-assisted development and Deployxa Cloud.
 
+## 🚀 Deploy in Seconds
+
+Deploy this production-ready template directly to Deployxa Cloud.
+
+[![Deploy with Deployxa](branding/deploy-button.svg)](https://deployxa.com/new?template=next.js&framework=next.js&repo=https://github.com/deployxa-templates/deployxa-nextjs&branch=main&source=github&campaign=official-template)
+
+### Or deploy using the CLI
+
+Initialize connection:
+```bash
+deployxa login
+```
+
+Deploy the application:
+```bash
+deployxa deploy
+```
+
+If the repository is already linked:
+```bash
+deployxa deploy
+```
+
+If not linked yet:
+```bash
+deployxa link
+deployxa deploy
+```
+
 ---
 
 ## Why This Template?
@@ -35,18 +64,18 @@ Compatible with major AI tools:
 
 ## Included
 
-* **Dockerfile**: Advanced multi-stage Next.js standalone container.
-* **docker-compose.yml**: Configured with Next.js web application, PostgreSQL database, and Redis cache with health checks.
-* **Health Checks**: Root health check `/health` returning `{"status":"ok"}`.
-* **Logging**: Environment level production logging configs.
-* **Security**: Multi-stage non-root container permissions, security-hardened Alpine build.
-* **CI Actions**: Preconfigured pipeline checking linting, compiling code, running tests, and validating Docker.
+* **Dockerfile**: Advanced production multi-stage container configuration.
+* **docker-compose.yml**: Configured local orchestration stack.
+* **Health Checks**: Endpoint `/health` returning `{"status":"ok"}`.
+* **Logging**: Production-grade logging defaults.
+* **Security**: Non-root user permissions, hardened base image.
+* **CI Actions**: Automated pipeline for building, linting, testing, and Docker validation.
 
 ---
 
 ## Requirements
 
-- Node.js 20+
+- Node.js 18+
 - Docker & Docker Compose (optional for containerized run)
 
 ---
@@ -57,7 +86,6 @@ Clone the template and set up configurations:
 
 ```bash
 cp .env.example .env
-npm install
 ```
 
 ---
@@ -67,43 +95,20 @@ npm install
 Start the development server:
 
 ```bash
-npm run dev
-```
-
----
-
-## Docker
-
-Run the entire application environment with Docker Compose:
-
-```bash
 docker compose up --build
 ```
 
 ---
 
-## Deploy to Deployxa
+## Resources & Links
 
-Deploy instantly via CLI:
-
-```bash
-deployxa deploy
-```
-
-For more documentation, visit the [Deployxa Documentation](https://docs.deployxa.com).
-
----
-
-## Environment Variables
-
-| Variable | Description | Default |
-|---|---|---|
-| `NODE_ENV` | Mode of the application (development/production) | `production` |
-| `PORT` | Listening port for the application | `3000` |
-| `NEXT_PUBLIC_APP_URL` | Application root web URL | `http://localhost:3000` |
-| `DATABASE_URL` | PostgreSQL connection string | `postgresql://postgres:postgres@localhost:5432/deployxa?schema=public` |
-| `REDIS_URL` | Redis cache connection string | `redis://localhost:6379` |
-| `LOG_LEVEL` | Level of logging output (debug/info/error) | `info` |
+* [Deployxa Website](https://deployxa.com)
+* [Deployxa Documentation](https://docs.deployxa.com)
+* [Deployxa CLI Repository](https://github.com/deployxa-project/deployxa-cli)
+* [Deployxa Dashboard](https://dash.deployxa.com)
+* [Deployxa Templates Catalog](https://deployxa.com/templates)
+* [Deployxa Community Discord](https://discord.gg/deployxa)
+* [Deployxa Templates GitHub Organization](https://github.com/deployxa-templates)
 
 ---
 
@@ -113,11 +118,12 @@ For more documentation, visit the [Deployxa Documentation](https://docs.deployxa
 .github/
     workflows/
         ci.yml      # CI/CD Validation
+branding/
+    deploy-button.svg       # Deploy Button
+    deploy-button-dark.svg  # Dark Deploy Button
+    deploy-button-light.svg # Light Deploy Button
 docker/             # Configuration files
-src/
-    app/
-        health/
-            route.ts # Health Check Route
+src/                # Source files
 public/             # Static Assets
 config/             # Configuration Settings
 scripts/            # Operations Utilities
@@ -144,10 +150,9 @@ Exposes a JSON payload at `/health`:
 
 ## Production Optimizations
 
-- **Standalone Output**: Compiled with `next.config.js` output set to `standalone`, copying only required node modules to the final runner stage.
-- **Caching**: Multi-stage dependency building uses docker caching mechanisms.
-- **Docker Base**: Uses lightweight alpine image.
-- **Container Security**: Executes under dedicated `nextjs` user.
+- **Container Caching**: Docker layer caching speeds up dependency installation.
+- **Minimal Image**: Leverages Alpine or Distroless bases where possible.
+- **Secure Container Configuration**: Executes as non-root user.
 
 ---
 
@@ -163,13 +168,6 @@ Optimized specifically for agents:
 ## CI/CD
 
 Validates syntax compiling, execution check, testing logic, and constructs docker build cache on pull requests.
-
----
-
-## Troubleshooting
-
-- **Redis connection failures**: Verify that `REDIS_URL` points correctly.
-- **Database issues**: Wait for postgres healthy check status.
 
 ---
 
